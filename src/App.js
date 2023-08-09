@@ -1,23 +1,35 @@
-import logo from './logo.svg';
 import './App.css';
+import Navbar from './components/Navbar';
+import Main from './components/Main';
+import Row from './components/Row'
+// import '../'
+import { useEffect,useState } from 'react';
+import { tmdbDetails } from './request';
 
 function App() {
+
+  // console.log(`${process.env.REACT_APP_API_KEY}`)
+  
+
+  // console.log(tmdbDetails);
+
+  console.log(tmdbDetails[1]);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Navbar></Navbar>
+      <Main id={tmdbDetails[1].id} name={tmdbDetails[1].name} url={tmdbDetails[1].url}></Main>
+
+      {
+        tmdbDetails.map((value,index,tmdbDetails)=>{
+           return (
+             <Row id = {value.id} name = {value.name} url = {value.url}></Row>
+           )
+        })
+      }
+
+      {/* <Row></Row> */}
+      {/* <Main></Main> */}
     </div>
   );
 }
