@@ -31,8 +31,17 @@
     max-width: 100%;
 }
 
-@media screen and (max-width: 1000px) {
-    .Navbar {
-        font-size: 50%;
+@media screen and (max-width: 600px) {
+    .netflixLogo {
+        height: 30px;
+        width: 100px;
+        margin-left: 40px;
     }
+
+    .profileLogo {
+        height: 40px;
+        width: 40px;
+        margin-right: 80px;
+    }
+    
 }

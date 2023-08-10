@@ -104,3 +104,32 @@ body{
 }
 
 
+@media screen and (max-width: 600px) {
+    .row {
+        height: 230px;
+    }
+
+    .headRow {
+        height: 50px;
+        font-size: 2.5rem;
+        padding-left: 10px;
+    }
+
+    .moviesRow {
+        height: 180px;
+    }
+
+    .imageRow {
+        height: 170px;
+        width: 150px;
+        padding: 7px;
+    }
+        
+    .left-arrow, .right-arrow {
+        width: 20px;
+        height: 20px;
+        margin-top: 90px;
+    }
+  
+}
+
