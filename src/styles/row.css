@@ -133,3 +133,11 @@ body{
   
 }
 
+@media screen and (max-width: 300px) {
+    .headRow {
+        height: 50px;
+        font-size: 2rem;
+        padding-left: 10px;
+    }
+}
+

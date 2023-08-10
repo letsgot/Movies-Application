@@ -150,3 +150,37 @@ body{
         margin-left: 60px;
     }
 }
+
+@media screen and (max-width: 400px) {
+    .wrap {
+      height: 239px;
+      width: 80%;
+    }
+  
+  .head {
+    margin-left: 25px;
+    height: 95px;
+    font-size: 24px;
+  }
+  
+  .button {
+    height: 85px;
+    margin-left: 15px;
+  }
+
+  .button>button{
+    font-size: 16px;
+    font-weight: 500;
+    height: 36px;
+    margin-left: 18px;
+    width: 74px;
+}
+  
+    .title {
+        font-size: 12px;
+        height: 290px;
+        margin-left: 25px;
+        width: 90%;
+    }
+}
+
