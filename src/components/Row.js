@@ -5,22 +5,21 @@ import { useRef } from 'react';
 import left from "../assets/left-swipe.svg"
 import right from "../assets/right-swipe.svg"
 // import '../styles/row.module.css'
+import Youtube from 'react-youtube';
+import movieTrailer from 'movie-trailer';
+import { IoMdClose } from "react-icons/io";
+
 function Row(props) {
   const [state, setState] = useState([]); //initializing the state variable as an empty array
+  const [divVisible, setDivVisible] = useState(false);
+  const [trailerUrl, setTrailerUrl] = useState("");
+  
   let Access_key = "d36460368b39e0c50d1ca7228acf73bd";
   const fetchTrending = async () => {
-    // console.log("9"+props.url);
     let part = (props.url).split("undefined");
-    // console.log(part[0]);
-    // console.log(part[1]);
-//     const data = await fetch(`
-// https://api.themoviedb.org/3/discover/tv?api_key=${Access_key}&with_networks=213`);
-    const data = await fetch(`
+   const data = await fetch(`
     https://api.themoviedb.org/3${part[0]}${Access_key}${part[1]}`);
-    // /discover/tv?api_key=${process.env.REACT_APP_API_KEY}&with_networks=213
-// console.log(rowStyle);
     const dataJ = await data.json(); // fetching data from API in JSON Format
-    // console.log(dataJ);
     setState(dataJ.results); //storing that data in the state
   };
 
@@ -29,7 +28,6 @@ function Row(props) {
     fetchTrending(); //calling the fetchTrending function only during the initial rendering of the app.
   }, []);
 
-  // console.log(state);
 
   //LEFT-RIGHT-ARROW SCROLLER
   const boxRef = useRef(null);
@@ -53,6 +51,47 @@ function Row(props) {
       }
   }
 
+   const opts = {
+        height: "390",
+        width: "95%",
+        playerVars: {
+            autoplay: 1,
+        }
+    }
+
+     let handleClick = (movie) => {
+        // console.log("clicked");
+        // console.log(movie);
+        movieTrailer(movie?.title || movie?.name || "")
+            .then((url) => {
+                const urlParams = new URLSearchParams(new URL(url).search); //the URL object is used to parse the url (movie trailer URL) to extract the query parameters
+                setTrailerUrl(urlParams.get('v'));
+                setDivVisible(true);
+                // console.log(urlParams.get('v'));
+            }).catch((error) => console.log("temporary unavailabe"));
+
+    }
+
+    //yt close btn logic
+    const handleCloseClick = () => {
+        setTrailerUrl('');
+        setDivVisible(false);
+    };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   // console.log(props);
 
@@ -62,6 +101,7 @@ function Row(props) {
   let baseUrl = "https://image.tmdb.org/t/p/original";
 
   return (
+    <>
     <div className="row">
       <div className="headRow">
         {props.name}
@@ -74,7 +114,7 @@ function Row(props) {
             // console.log(value.id + " " + index + "  ");
             let link = baseUrl + value.poster_path;
             return (
-              <img src={link} className='imageRow'>
+              <img src={link} className='imageRow'  onClick={() => handleClick(value)}>
                 
               </img>
               // <></>
@@ -86,6 +126,15 @@ function Row(props) {
       <img src={right} className='right-arrow' onClick={btnpressnext} alt="right-arrow" />
 
     </div>
+
+
+        <div className='yt-main'>
+                <div>
+                    {trailerUrl && <Youtube videoId={trailerUrl} opts={opts} className='yt-player' />}
+                </div>
+                {divVisible && <IoMdClose className='close-yt-trailer-btn' onClick={() => handleCloseClick()} />}
+            </div> 
+    </>
   )
 }
 
